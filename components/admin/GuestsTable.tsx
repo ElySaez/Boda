@@ -6,6 +6,16 @@ import { formatDateTime } from "@/lib/format";
 import { siteConfig } from "@/config/wedding";
 import { GuestFormModal } from "./GuestFormModal";
 import {
+  CheckIcon,
+  CopyIcon,
+  ExternalLinkIcon,
+  MailCheckIcon,
+  PencilIcon,
+  PowerIcon,
+  RefreshIcon,
+  TrashIcon,
+} from "./icons";
+import {
   deleteGuestAction,
   regenerateTokenAction,
   toggleGuestFieldAction,
@@ -274,53 +284,86 @@ function GuestRowActions({
   onRegenerateToken: () => void;
 }) {
   if (compact) {
+    const iconButtonClass =
+      "inline-flex h-8 w-8 items-center justify-center rounded-full border-2 transition-colors disabled:opacity-40";
+
     return (
-      <div className="flex flex-wrap gap-2">
-        <button type="button" onClick={onEdit} className="text-xs font-semibold text-barbie-600 underline underline-offset-2">
-          Editar
+      <div className="flex flex-wrap items-center gap-1.5">
+        <button
+          type="button"
+          onClick={onEdit}
+          title="Editar"
+          aria-label={`Editar a ${guest.full_name}`}
+          className={`${iconButtonClass} border-barbie-200 text-barbie-600 hover:bg-barbie-50`}
+        >
+          <PencilIcon />
         </button>
-        <button type="button" onClick={onCopyLink} className="text-xs font-semibold text-barbie-600 underline underline-offset-2">
-          {copied ? "¡Copiado!" : "Copiar enlace"}
+        <button
+          type="button"
+          onClick={onCopyLink}
+          title={copied ? "¡Copiado!" : "Copiar enlace"}
+          aria-label={`Copiar enlace de ${guest.full_name}`}
+          className={`${iconButtonClass} border-barbie-200 text-barbie-600 hover:bg-barbie-50`}
+        >
+          {copied ? <CheckIcon /> : <CopyIcon />}
         </button>
         <a
           href={guestLink(guest.token)}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-xs font-semibold text-barbie-600 underline underline-offset-2"
+          title="Abrir enlace"
+          aria-label={`Abrir enlace de ${guest.full_name}`}
+          className={`${iconButtonClass} border-barbie-200 text-barbie-600 hover:bg-barbie-50`}
         >
-          Abrir enlace
+          <ExternalLinkIcon />
         </a>
         <button
           type="button"
           onClick={onToggleActive}
           disabled={isPending}
-          className="text-xs font-semibold text-stone-600 underline underline-offset-2"
+          title={guest.invitation_active ? "Desactivar invitación" : "Activar invitación"}
+          aria-label={`${guest.invitation_active ? "Desactivar" : "Activar"} invitación de ${guest.full_name}`}
+          className={`${iconButtonClass} ${
+            guest.invitation_active
+              ? "border-stone-200 text-stone-500 hover:bg-stone-100"
+              : "border-gold-300 text-gold-600 hover:bg-gold-50"
+          }`}
         >
-          {guest.invitation_active ? "Desactivar" : "Activar"}
+          <PowerIcon />
         </button>
         <button
           type="button"
           onClick={onToggleDelivered}
           disabled={isPending}
-          className="text-xs font-semibold text-stone-600 underline underline-offset-2"
+          title={guest.invitation_delivered ? "Marcar como no entregada" : "Marcar como entregada"}
+          aria-label={`${guest.invitation_delivered ? "Marcar como no entregada" : "Marcar como entregada"} la invitación de ${guest.full_name}`}
+          className={`${iconButtonClass} ${
+            guest.invitation_delivered
+              ? "border-green-200 text-green-600 hover:bg-green-50"
+              : "border-stone-200 text-stone-500 hover:bg-stone-100"
+          }`}
         >
-          {guest.invitation_delivered ? "Marcar no entregada" : "Marcar entregada"}
+          <MailCheckIcon />
         </button>
         <button
           type="button"
           onClick={onRegenerateToken}
           disabled={isPending}
-          className="text-xs font-semibold text-stone-600 underline underline-offset-2"
+          title="Regenerar enlace"
+          aria-label={`Regenerar enlace de ${guest.full_name}`}
+          className={`${iconButtonClass} border-stone-200 text-stone-500 hover:bg-stone-100`}
         >
-          Regenerar enlace
+          <RefreshIcon />
         </button>
         <button
           type="button"
           onClick={onDelete}
           disabled={isPending}
-          className="text-xs font-semibold text-red-600 underline underline-offset-2"
+          title="Eliminar invitado"
+          aria-label={`Eliminar a ${guest.full_name}`}
+          className={`${iconButtonClass} border-red-200 text-red-600 hover:bg-red-50`}
         >
-          Eliminar
+          <TrashIcon />
         </button>
       </div>
     );
@@ -329,32 +372,32 @@ function GuestRowActions({
   // Vista móvil: botones táctiles con área mínima cómoda, no links de texto
   // apretados (más difíciles de tocar con precisión en una pantalla chica).
   const buttonClass =
-    "min-h-[40px] rounded-lg border-2 border-stone-200 px-2 text-xs font-semibold text-stone-700 active:bg-stone-100";
+    "flex min-h-[40px] items-center justify-center gap-1.5 rounded-lg border-2 border-stone-200 px-2 text-xs font-semibold text-stone-700 active:bg-stone-100";
 
   return (
     <div className="mt-3 grid grid-cols-2 gap-2">
       <button type="button" onClick={onEdit} className={`${buttonClass} border-barbie-200 text-barbie-600`}>
-        Editar
+        <PencilIcon /> Editar
       </button>
       <button type="button" onClick={onCopyLink} className={`${buttonClass} border-barbie-200 text-barbie-600`}>
-        {copied ? "¡Copiado!" : "Copiar enlace"}
+        {copied ? <CheckIcon /> : <CopyIcon />} {copied ? "¡Copiado!" : "Copiar enlace"}
       </button>
       <a
         href={guestLink(guest.token)}
         target="_blank"
         rel="noopener noreferrer"
-        className={`${buttonClass} flex items-center justify-center border-barbie-200 text-barbie-600`}
+        className={`${buttonClass} border-barbie-200 text-barbie-600`}
       >
-        Abrir enlace
+        <ExternalLinkIcon /> Abrir enlace
       </a>
       <button type="button" onClick={onToggleActive} disabled={isPending} className={buttonClass}>
-        {guest.invitation_active ? "Desactivar" : "Activar"}
+        <PowerIcon /> {guest.invitation_active ? "Desactivar" : "Activar"}
       </button>
       <button type="button" onClick={onToggleDelivered} disabled={isPending} className={buttonClass}>
-        {guest.invitation_delivered ? "No entregada" : "Marcar entregada"}
+        <MailCheckIcon /> {guest.invitation_delivered ? "No entregada" : "Entregada"}
       </button>
       <button type="button" onClick={onRegenerateToken} disabled={isPending} className={buttonClass}>
-        Regenerar enlace
+        <RefreshIcon /> Regenerar
       </button>
       <button
         type="button"
@@ -362,7 +405,7 @@ function GuestRowActions({
         disabled={isPending}
         className={`${buttonClass} col-span-2 border-red-200 text-red-600`}
       >
-        Eliminar invitado
+        <TrashIcon /> Eliminar invitado
       </button>
     </div>
   );
