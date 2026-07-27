@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img" aria-label="Espacio reservado para fotografía de galería 1">
+  <rect width="600" height="600" fill="#ffe0ef"/>
+  <circle cx="300" cy="300" r="180" fill="#ff8ac2" opacity="0.5"/>
+  <text x="300" y="310" text-anchor="middle" font-family="Georgia, serif" font-size="26" fill="#7a0d46">Foto 1</text>
+</svg>

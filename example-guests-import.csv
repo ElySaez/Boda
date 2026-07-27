@@ -1,0 +1,6 @@
+full_name,family_group,phone,email,maximum_guests,children_allowed,plus_one_allowed,table_number,internal_notes
+Juan Pérez,Familia Pérez,+56911111111,juan.perez@example.com,2,true,true,1,Amigo de la universidad de Cristian
+María López,Familia López,+56922222222,maria.lopez@example.com,4,true,true,2,Prima de Elisabeth
+Andrés Muñoz,Amigos Trabajo,+56933333333,andres.munoz@example.com,1,false,false,3,
+Sofía Contreras,Amigas Universidad,+56944444444,sofia.contreras@example.com,2,false,true,3,Compañera de ciberseguridad
+Pedro Ramírez,Familia Ramírez,+56955555555,,1,false,false,,Sin correo registrado
